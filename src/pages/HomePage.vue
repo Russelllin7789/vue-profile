@@ -11,7 +11,7 @@
         />
         <div class="postInfo">
           <div class="postMeta">
-            <img src="" alt="" class="avatar" />
+            <TheAvatar />
             <span>許語彤</span>
             <span class="postPubDate">12小時之前</span>
             <div class="postActions">
@@ -32,11 +32,14 @@
         </div>
       </div>
     </div>
+    <PostDetails />
   </div>
 </template>
 
 <script setup lang="ts">
 import TheIcon from "../components/TheIcon.vue";
+import TheAvatar from "../components/TheAvatar.vue";
+import PostDetails from "../components/PostDetails.vue";
 </script>
 
 <style scoped>
