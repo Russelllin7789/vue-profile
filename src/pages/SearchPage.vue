@@ -1,5 +1,25 @@
 <template>
-  <h1>Searching!</h1>
+  <div>
+    <h2 class="title">搜尋結果：職務</h2>
+    <PostList>
+      <PostItem v-for="n in 10" />
+    </PostList>
+    <!-- <PostDetails /> -->
+    <PostUpload />
+  </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import PostDetails from "../components/PostDetails.vue";
+import PostList from "../components/PostList.vue";
+import PostItem from "../components/PostItem.vue";
+import PostUpload from "../components/PostUpload.vue";
+</script>
+
+<style scoped>
+.title {
+  font-weight: 600px;
+  font-size: 24px;
+  margin-bottom: 44px;
+}
+</style>
