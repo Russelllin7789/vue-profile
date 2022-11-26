@@ -1,49 +1,42 @@
 <template>
-  <Teleport to="body">
-    <div class="modal">
-      <div class="backdrop"></div>
-      <div class="modalContent">
-        <button class="closeBtn"><TheIcon icon="close" /></button>
-        <div class="postDetails">
-          <img class="postImage" src="" alt="" />
-          <div class="postMeta">
-            <div class="author">
-              <TheAvatar />
-              <span>許語彤</span>
-            </div>
-            <pre class="postDesc">
-            這是從家裡陽台拍出來的照片，希望你各位喜歡：）
-          </pre
-            >
-            <div class="comments">
-              <div class="comment" v-for="n in 10">
-                <TheAvatar />
-                <span class="user">張三</span>
-                <span class="commentDate">1d</span>
-                <p class="commentContent">非常好看！太厲害ㄌ吧！</p>
-              </div>
-            </div>
-            <div class="actions">
-              <PostActions />
-              <span class="postPubDate">12h</span>
-              <input
-                type="text"
-                name="comment"
-                id=""
-                class="commentInput"
-                placeholder="留下評論吧......"
-              />
-              <button class="commentPubBtn">發佈</button>
-            </div>
+  <TheModal>
+    <div class="postDetails">
+      <img class="postImage" src="" alt="" />
+      <div class="postMeta">
+        <div class="author">
+          <TheAvatar />
+          <span>許語彤</span>
+        </div>
+        <pre class="postDesc">
+這是從家裡陽台拍出來的照片，希望你各位喜歡：）</pre
+        >
+        <div class="comments">
+          <div class="comment" v-for="n in 10">
+            <TheAvatar />
+            <span class="user">張三</span>
+            <span class="commentDate">1d</span>
+            <p class="commentContent">非常好看！太厲害ㄌ吧！</p>
           </div>
+        </div>
+        <div class="actions">
+          <PostActions />
+          <span class="postPubDate">12h</span>
+          <input
+            type="text"
+            name="comment"
+            id=""
+            class="commentInput"
+            placeholder="留下評論吧......"
+          />
+          <button class="commentPubBtn">發佈</button>
         </div>
       </div>
     </div>
-  </Teleport>
+  </TheModal>
 </template>
 
 <script setup lang="ts">
-import TheIcon from "./TheIcon.vue";
+import TheModal from "./TheModal.vue";
 import TheAvatar from "./TheAvatar.vue";
 import PostActions from "./PostActions.vue";
 </script>
