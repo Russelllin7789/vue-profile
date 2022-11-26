@@ -3,13 +3,16 @@
     <header class="header">
       <Navbar />
     </header>
-    <router-view></router-view>
+    <TheLayout>
+      <router-view></router-view>
+    </TheLayout>
   </div>
 </template>
 
 <script setup lang="ts">
 import "./assets/base.css";
 import Navbar from "./components/Navbar.vue";
+import TheLayout from "./components/TheLayout.vue";
 </script>
 
 <style scoped>

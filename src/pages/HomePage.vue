@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div>
     <div class="postList">
       <div class="postItem" v-for="n in 10">
         <img
@@ -28,7 +28,6 @@
 </template>
 
 <script setup lang="ts">
-import TheIcon from "../components/TheIcon.vue";
 import TheAvatar from "../components/TheAvatar.vue";
 import PostDetails from "../components/PostDetails.vue";
 import PostActions from "../components/PostActions.vue";
@@ -36,13 +35,6 @@ import PostUpload from "../components/PostUpload.vue";
 </script>
 
 <style scoped>
-.content {
-  width: 80vw;
-  max-width: 1124px;
-  margin: 0 auto;
-  margin-top: 88px;
-}
-
 .postList {
   display: grid;
   grid-template-columns: 1fr 1fr;
