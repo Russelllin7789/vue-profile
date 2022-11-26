@@ -1,11 +1,16 @@
 <template>
   <div>
-    <header class="header">
-      <Navbar />
-    </header>
-    <TheLayout>
+    <template v-if="$route.name !== 'login'">
+      <header class="header">
+        <Navbar />
+      </header>
+      <TheLayout>
+        <router-view></router-view>
+      </TheLayout>
+    </template>
+    <template v-else>
       <router-view></router-view>
-    </TheLayout>
+    </template>
   </div>
 </template>
 
