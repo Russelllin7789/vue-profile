@@ -11,6 +11,9 @@
     <template v-else>
       <router-view></router-view>
     </template>
+    <footer class="footer" :class="{ inside: $route.name === 'login' }">
+      &copy;RussellLin. All Rights Reserved.
+    </footer>
   </div>
 </template>
 
