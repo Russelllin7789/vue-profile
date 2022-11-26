@@ -22,7 +22,8 @@
         </div>
       </div>
     </div>
-    <PostDetails />
+    <!-- <PostDetails /> -->
+    <PostUpload />
   </div>
 </template>
 
@@ -31,6 +32,7 @@ import TheIcon from "../components/TheIcon.vue";
 import TheAvatar from "../components/TheAvatar.vue";
 import PostDetails from "../components/PostDetails.vue";
 import PostActions from "../components/PostActions.vue";
+import PostUpload from "../components/PostUpload.vue";
 </script>
 
 <style scoped>
