@@ -24,14 +24,7 @@
               </div>
             </div>
             <div class="actions">
-              <div class="postActions">
-                <TheIcon icon="like" />
-                <span>15k</span>
-                <TheIcon icon="comment" />
-                <span>15k</span>
-                <TheIcon icon="favorite" />
-                <span>15k</span>
-              </div>
+              <PostActions />
               <span class="postPubDate">12h</span>
               <input
                 type="text"
@@ -52,6 +45,7 @@
 <script setup lang="ts">
 import TheIcon from "./TheIcon.vue";
 import TheAvatar from "./TheAvatar.vue";
+import PostActions from "./PostActions.vue";
 </script>
 
 <style scoped>

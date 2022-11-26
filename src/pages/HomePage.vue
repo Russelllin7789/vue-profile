@@ -14,17 +14,7 @@
             <TheAvatar />
             <span>許語彤</span>
             <span class="postPubDate">12小時之前</span>
-            <div class="postActions">
-              <TheIcon icon="like" fill="none" stroke="#000000" /><span
-                >1.5k</span
-              >
-              <TheIcon icon="comment" fill="none" stroke="#000000" /><span
-                >15k</span
-              >
-              <TheIcon icon="favorite" fill="none" stroke="#000000" /><span
-                >99k</span
-              >
-            </div>
+            <PostActions />
             <div class="postDesc">
               <p>這是一棵樹，這是一棵樹喔！#植物 #職務</p>
             </div>
@@ -40,6 +30,7 @@
 import TheIcon from "../components/TheIcon.vue";
 import TheAvatar from "../components/TheAvatar.vue";
 import PostDetails from "../components/PostDetails.vue";
+import PostActions from "../components/PostActions.vue";
 </script>
 
 <style scoped>
