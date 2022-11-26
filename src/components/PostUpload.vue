@@ -8,10 +8,10 @@
 
       <div class="postContent">
         <textarea
-          placeholder="写点什么吧..."
+          placeholder="留下想說的話吧......"
           class="postContentInput"
         ></textarea>
-        <button class="pubBtn">送出</button>
+        <TheButton class="pubBtn">送出</TheButton>
       </div>
     </div>
   </TheModal>
@@ -20,6 +20,7 @@
 <script setup lang="ts">
 import TheModal from "./TheModal.vue";
 import TheIcon from "./TheIcon.vue";
+import TheButton from "./TheButton.vue";
 </script>
 
 <style scoped>

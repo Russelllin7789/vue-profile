@@ -11,7 +11,7 @@ interface Props {
   height?: number;
 }
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   width: 34,
   height: 34,
 });
