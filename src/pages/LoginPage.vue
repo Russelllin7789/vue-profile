@@ -3,7 +3,7 @@
     <img src="../assets/phone.png" alt="" class="phoneImage" />
     <div class="loginForm">
       <img src="../assets/logo.svg" alt="" />
-      <form>
+      <form @submit.prevent>
         <input type="email" placeholder="Email 帳號" v-model="email" />
         <input
           v-if="!isLogin"
@@ -12,7 +12,7 @@
           v-model="username"
         />
         <input type="password" placeholder="密碼" v-model="password" />
-        <button type="submit" class="loginButton">
+        <button type="submit" class="loginButton" @click="register">
           {{ isLogin ? "登入" : "註冊" }}
         </button>
         <p @click="isLogin = !isLogin" class="info">
@@ -28,8 +28,11 @@
     </div>
   </div>
 </template>
+
 <script setup lang="ts">
 import { ref } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 const isLogin = ref(true);
 
@@ -37,7 +40,25 @@ const email = ref("");
 const username = ref("");
 const password = ref("");
 const agreementChecked = ref(false);
+
+const store = useStore();
+const router = useRouter();
+
+async function register() {
+  if (!agreementChecked.value) {
+    alert("請先閱讀並同意隱私協議與使用規範");
+    return;
+  }
+
+  await store.dispatch("registerUser", {
+    email: email.value,
+    username: username.value,
+    password: password.value,
+  });
+  router.replace("/");
+}
 </script>
+
 <style scoped>
 .loginPage {
   display: grid;

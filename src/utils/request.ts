@@ -2,7 +2,7 @@ import { getJwtToken } from "../apis/auth";
 
 interface fetchObj {
   method: string;
-  body?: string;
+  body?: {};
   headers?: {};
   auth: boolean;
 }
