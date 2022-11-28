@@ -6,8 +6,8 @@ export default defineConfig({
   plugins: [vue()],
   server: {
     proxy: {
-      api: "http://localhost:1337",
-      upload: "http://localhost:1337",
+      "/api": "http://localhost:1337",
+      "/upload": "http://localhost:1337",
     },
   },
 });
