@@ -35,3 +35,17 @@ export async function register(
   saveUser(result.user);
   return result.user;
 }
+
+export async function login(email: string, password: string) {
+  const result = await request("/api/auth/local", {
+    method: "POST",
+    auth: false,
+    body: {
+      identifier: email,
+      password,
+    },
+  });
+  setJwtToken(result.jwt);
+  saveUser(result.user);
+  return result.user;
+}
