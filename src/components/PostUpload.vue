@@ -1,5 +1,5 @@
 <template>
-  <TheModal>
+  <TheModal @close="store.commit('changeShowPostUpload', false)">
     <div class="postUpload">
       <label class="upload">
         <TheIcon icon="upload-image" />
@@ -21,6 +21,9 @@
 import TheModal from "./TheModal.vue";
 import TheIcon from "./TheIcon.vue";
 import TheButton from "./TheButton.vue";
+import { useStore } from "vuex";
+
+const store = useStore();
 </script>
 
 <style scoped>

@@ -6,7 +6,15 @@ import { comment } from "./comment";
 
 export const store = createStore({
   modules: { user, post, comment },
-  state() {},
-  mutations: {},
+  state() {
+    return {
+      showPostUpload: false,
+    };
+  },
+  mutations: {
+    changeShowPostUpload(state, show: boolean) {
+      state.showPostUpload = show;
+    },
+  },
   actions: {},
 });
