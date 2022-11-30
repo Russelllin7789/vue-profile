@@ -16,8 +16,9 @@
         <textarea
           placeholder="留下想說的話吧......"
           class="postContentInput"
+          v-model="description"
         ></textarea>
-        <TheButton class="pubBtn">送出</TheButton>
+        <TheButton class="pubBtn" @click="publishPost">送出</TheButton>
       </div>
     </div>
   </TheModal>
@@ -33,12 +34,23 @@ import { useStore } from "vuex";
 const store = useStore();
 
 const imageUrl = ref("");
+const image = ref<any>(null);
+const description = ref("");
 
 const handleImageUpload = async (e: Event): Promise<void> => {
   const imageFileList = (e.target as HTMLInputElement).files as FileList;
-  if (imageFileList[0]) {
-    imageUrl.value = URL.createObjectURL(imageFileList[0]);
+  const imageFile = imageFileList[0];
+  if (imageFile) {
+    imageUrl.value = URL.createObjectURL(imageFile);
+    image.value = imageFile;
   }
+};
+
+const publishPost = () => {
+  store.dispatch("uploadPost", {
+    image: image.value,
+    description: description.value,
+  });
 };
 </script>
 
