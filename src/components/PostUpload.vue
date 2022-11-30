@@ -2,8 +2,14 @@
   <TheModal @close="store.commit('changeShowPostUpload', false)">
     <div class="postUpload">
       <label class="upload">
-        <TheIcon icon="upload-image" />
-        <input type="file" accept="image/*" class="fileChooser" />
+        <img v-if="imageUrl" :src="imageUrl" class="preview" />
+        <TheIcon v-else icon="upload-image" />
+        <input
+          type="file"
+          accept="image/*"
+          class="fileChooser"
+          @change="handleImageUpload"
+        />
       </label>
 
       <div class="postContent">
@@ -18,12 +24,22 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import TheModal from "./TheModal.vue";
 import TheIcon from "./TheIcon.vue";
 import TheButton from "./TheButton.vue";
 import { useStore } from "vuex";
 
 const store = useStore();
+
+const imageUrl = ref("");
+
+const handleImageUpload = async (e: Event): Promise<void> => {
+  const imageFileList = (e.target as HTMLInputElement).files as FileList;
+  if (imageFileList[0]) {
+    imageUrl.value = URL.createObjectURL(imageFileList[0]);
+  }
+};
 </script>
 
 <style scoped>
