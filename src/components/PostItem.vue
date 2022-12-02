@@ -1,14 +1,20 @@
 <template>
   <div class="postItem">
-    <img src="" alt="" width="100%" height="100%" style="background: #eee" />
+    <img
+      :src="post.image"
+      alt=""
+      width="100%"
+      height="100%"
+      style="background: #eee"
+    />
     <div class="postInfo">
       <div class="postMeta">
-        <TheAvatar />
-        <span>許語彤</span>
-        <span class="postPubDate">12小時之前</span>
+        <TheAvatar :src="post?.user?.avatar" />
+        <span>{{ post?.user?.name || "NotFound" }}</span>
+        <span class="postPubDate">{{ dateToRelative(post.publishedAt) }}</span>
         <PostActions />
         <div class="postDesc">
-          <p>這是一棵樹，這是一棵樹喔！#植物 #職務</p>
+          <p>{{ post.description }}</p>
         </div>
       </div>
     </div>
@@ -17,8 +23,12 @@
 
 <script setup lang="ts">
 import TheAvatar from "../components/TheAvatar.vue";
-
 import PostActions from "../components/PostActions.vue";
+import dateToRelative from "../utils/date";
+
+defineProps<{
+  post: any;
+}>();
 </script>
 
 <style scoped>
