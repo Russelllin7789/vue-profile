@@ -4,7 +4,7 @@ interface fetchObj {
   method: string;
   body?: {};
   headers?: {};
-  auth: boolean;
+  auth?: boolean;
 }
 
 export async function request(

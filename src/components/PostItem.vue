@@ -12,7 +12,15 @@
         <TheAvatar :src="post?.user?.avatar" />
         <span>{{ post?.user?.name || "NotFound" }}</span>
         <span class="postPubDate">{{ dateToRelative(post.publishedAt) }}</span>
-        <PostActions />
+        <PostActions
+          :likes="post.liked_bies"
+          :comments="post.comments"
+          :favors="post.favored_bies"
+          :likedByMe="post.likedByMe"
+          :favoredByMe="post.favoredByMe"
+          @likeClick="this.$store.dispatch('toggleLike', post.id)"
+          @favorClick="this.$store.dispatch('toggleFavor', post.id)"
+        />
         <div class="postDesc">
           <p>{{ post.description }}</p>
         </div>

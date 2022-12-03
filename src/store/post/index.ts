@@ -1,4 +1,4 @@
-import { createPost, loadPosts } from "../../apis/post";
+import { createPost, loadPosts, likePost, favorPost } from "../../apis/post";
 
 export const post = {
   state() {
@@ -9,6 +9,24 @@ export const post = {
   mutations: {
     initializePosts(state: any, posts: any) {
       state.list = posts;
+    },
+    toggleLike(state: any, { id, isLike }: { id: string; isLike: boolean }) {
+      const post = state.list.find((post: any) => post.id === id);
+      if (isLike) {
+        post.liked_bies = (post.liked_bies || 0) + 1;
+      } else {
+        post.liked_bies--;
+      }
+      post.likedByMe = isLike;
+    },
+    toggleFavor(state: any, { id, isFavor }: { id: string; isFavor: boolean }) {
+      const post = state.list.find((post: any) => post.id === id);
+      if (isFavor) {
+        post.favored_bies = (post.favored_bies || 0) + 1;
+      } else {
+        post.favored_bies--;
+      }
+      post.favoredByMe = isFavor;
     },
   },
   actions: {
@@ -24,6 +42,16 @@ export const post = {
     async loadAllPosts({ commit }: { commit: any }) {
       const posts = await loadPosts();
       commit("initializePosts", posts);
+    },
+
+    async toggleLike({ commit }: { commit: any }, id: string) {
+      const isLike = await likePost(id);
+      commit("toggleLike", { id, isLike });
+    },
+
+    async toggleFavor({ commit }: { commit: any }, id: string) {
+      const isFavor = await favorPost(id);
+      commit("toggleFavor", { id, isFavor });
     },
   },
 };
