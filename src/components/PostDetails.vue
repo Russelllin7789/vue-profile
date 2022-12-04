@@ -1,15 +1,13 @@
 <template>
-  <TheModal>
+  <TheModal @close="store.dispatch('hidePostDetails')">
     <div class="postDetails">
-      <img class="postImage" src="" alt="" />
+      <img class="postImage" :src="post.image" alt="" />
       <div class="postMeta">
         <div class="author">
-          <TheAvatar />
-          <span>許語彤</span>
+          <TheAvatar :src="post.user?.avatar" />
+          <span>{{ post.user?.name }}</span>
         </div>
-        <pre class="postDesc">
-這是從家裡陽台拍出來的照片，希望你各位喜歡：）</pre
-        >
+        <pre class="postDesc">{{ post.description }}</pre>
         <div class="comments">
           <div class="comment" v-for="n in 10">
             <TheAvatar />
@@ -19,8 +17,18 @@
           </div>
         </div>
         <div class="actions">
-          <PostActions />
-          <span class="postPubDate">12h</span>
+          <PostActions
+            :likes="post.liked_bies"
+            :comments="post.comments"
+            :favors="post.favored_bies"
+            @likeClick="store.dispatch('toggleLike', post.id)"
+            @favorClick="store.dispatch('toggleFavor', post.id)"
+            :liked-by-me="post.likedByMe"
+            :favored-by-me="post.favoredByMe"
+          />
+          <span class="postPubDate">{{
+            dateToRelative(post.publishedAt)
+          }}</span>
           <input
             type="text"
             name="comment"
@@ -36,9 +44,15 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from "vue";
+import { useStore } from "vuex";
 import TheModal from "./TheModal.vue";
 import TheAvatar from "./TheAvatar.vue";
 import PostActions from "./PostActions.vue";
+import dateToRelative from "../utils/date";
+
+const store = useStore();
+const post = computed(() => store.getters.postDetails);
 </script>
 
 <style scoped>

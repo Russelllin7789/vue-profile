@@ -6,6 +6,7 @@
       width="100%"
       height="100%"
       style="background: #eee"
+      @click="store.dispatch('showPostDetails', post.id)"
     />
     <div class="postInfo">
       <div class="postMeta">
@@ -18,8 +19,9 @@
           :favors="post.favored_bies"
           :likedByMe="post.likedByMe"
           :favoredByMe="post.favoredByMe"
-          @likeClick="this.$store.dispatch('toggleLike', post.id)"
-          @favorClick="this.$store.dispatch('toggleFavor', post.id)"
+          @likeClick="store.dispatch('toggleLike', post.id)"
+          @favorClick="store.dispatch('toggleFavor', post.id)"
+          @commentsClick="store.dispatch('showPostDetails', post.id)"
         />
         <div class="postDesc">
           <p>{{ post.description }}</p>
@@ -30,9 +32,12 @@
 </template>
 
 <script setup lang="ts">
+import { useStore } from "vuex";
 import TheAvatar from "../components/TheAvatar.vue";
 import PostActions from "../components/PostActions.vue";
 import dateToRelative from "../utils/date";
+
+const store = useStore();
 
 defineProps<{
   post: any;
