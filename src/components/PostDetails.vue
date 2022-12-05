@@ -32,11 +32,17 @@
           <input
             type="text"
             name="comment"
+            v-model="content"
             id=""
             class="commentInput"
             placeholder="留下評論吧......"
           />
-          <button class="commentPubBtn">發佈</button>
+          <button
+            class="commentPubBtn"
+            @click="store.dispatch('addComment', { content, postId: post.id })"
+          >
+            發佈
+          </button>
         </div>
       </div>
     </div>
@@ -44,12 +50,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { ref, computed } from "vue";
 import { useStore } from "vuex";
 import TheModal from "./TheModal.vue";
 import TheAvatar from "./TheAvatar.vue";
 import PostActions from "./PostActions.vue";
 import dateToRelative from "../utils/date";
+
+const content = ref("");
 
 const store = useStore();
 const post = computed(() => store.getters.postDetails);
