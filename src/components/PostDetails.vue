@@ -9,11 +9,13 @@
         </div>
         <pre class="postDesc">{{ post.description }}</pre>
         <div class="comments">
-          <div class="comment" v-for="n in 10">
-            <TheAvatar />
-            <span class="user">張三</span>
-            <span class="commentDate">1d</span>
-            <p class="commentContent">非常好看！太厲害ㄌ吧！</p>
+          <div class="comment" v-for="comment in comments">
+            <TheAvatar :src="comment.user?.avatar" />
+            <span class="user">{{ comment.user?.name }}</span>
+            <span class="commentDate">{{
+              dateToRelative(comment.pubDate)
+            }}</span>
+            <p class="commentContent">{{ comment.content }}</p>
           </div>
         </div>
         <div class="actions">
@@ -61,6 +63,7 @@ const content = ref("");
 
 const store = useStore();
 const post = computed(() => store.getters.postDetails);
+const comments = computed(() => store.state.comment.list);
 </script>
 
 <style scoped>

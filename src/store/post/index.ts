@@ -61,8 +61,12 @@ export const post = {
       const isFavor = await favorPost(id);
       commit("toggleFavor", { id, isFavor });
     },
-    async showPostDetails({ commit }: { commit: any }, id: string) {
+    async showPostDetails(
+      { commit, dispatch }: { commit: any; dispatch: any },
+      id: string
+    ) {
       commit("setCurrentId", id);
+      dispatch("loadAllComments", id);
       commit("changeShowPostDetails", true);
     },
     async hidePostDetails({ commit }: { commit: any }) {
