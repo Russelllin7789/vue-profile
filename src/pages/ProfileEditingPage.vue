@@ -6,7 +6,7 @@
       <TheButton>Avatar</TheButton>
       <input type="file" class="inputFile" @change="uploadAvatar" />
     </div>
-    <form class="profileForm">
+    <form class="profileForm" @submit.prevent="updateUser">
       <label for="username">Name</label>
       <input type="text" v-model="profileData.username" />
       <label for="name">Nickname</label>
@@ -37,7 +37,9 @@
       <label for="website">Website</label>
       <input type="text" v-model="profileData.website" />
       <div class="actions">
-        <TheButton type="reset" reverse>Cancel</TheButton>
+        <TheButton type="reset" reverse @click.prevent="router.push('/profile')"
+          >Cancel</TheButton
+        >
         <TheButton type="submit">Save</TheButton>
       </div>
     </form>
@@ -45,15 +47,19 @@
 </template>
 
 <script setup lang="ts">
-import TheButton from "../components/TheButton.vue";
-import TheAvatar from "../components/TheAvatar.vue";
-
 import { useStore } from "vuex";
 import { computed, reactive } from "vue";
+import { useRouter } from "vue-router";
+
+import TheButton from "../components/TheButton.vue";
+import TheAvatar from "../components/TheAvatar.vue";
 import { uploadFile } from "../apis/file";
 
 const store = useStore();
+const router = useRouter();
+
 const user = computed(() => store.state.user.user);
+
 const profileData = reactive({
   avatar: user.value.avatar,
   username: user.value.username,
@@ -68,6 +74,11 @@ const uploadAvatar = async (e: Event) => {
   const file = (e.target as HTMLInputElement).files?.[0];
   const url = await uploadFile(file);
   profileData.avatar = url;
+};
+
+const updateUser = async () => {
+  await store.dispatch("updateUser", profileData);
+  router.push("/profile");
 };
 </script>
 
