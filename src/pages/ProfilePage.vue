@@ -38,8 +38,14 @@
 </template>
 
 <script setup lang="ts">
+import { useStore } from "vuex";
+import { computed } from "vue";
+
 import TheIcon from "../components/TheIcon.vue";
 import TheAvatar from "../components/TheAvatar.vue";
+
+const store = useStore();
+const user = computed(() => store.state.user.user);
 </script>
 
 <style scoped>
