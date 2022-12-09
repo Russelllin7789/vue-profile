@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div v-if="user !== undefined">
     <div class="profileContainer">
-      <TheAvatar :width="186" :height="186" />
+      <TheAvatar :width="186" :height="186" :src="user.avatar" />
       <div class="profile">
         <p class="name">
-          <span>許語彤</span
+          <span>{{ user.name }}</span
           ><router-link to="/profile/edit">編輯個人檔案</router-link>
         </p>
         <p class="handle">@yu-tong_hsu</p>
