@@ -7,26 +7,32 @@
           <span>{{ user.name }}</span
           ><router-link to="/profile/edit">編輯個人檔案</router-link>
         </p>
-        <p class="handle">@yu-tong_hsu</p>
+        <p class="handle">@{{ user.username }}</p>
         <div class="description">
-          <pre>lalalili</pre>
+          <pre>{{ user.intro }}</pre>
         </div>
-        <p class="website">www.google.com</p>
+        <p class="website">{{ user.website }}</p>
       </div>
     </div>
     <div class="tabs">
-      <div class="tab active">
-        <TheIcon icon="posts" />
-        <p>我的</p>
+      <div
+        v-for="(tab, index) in tabs"
+        class="tab"
+        :class="{ active: index === currentTab }"
+        :key="index"
+        @click="currentTab = index"
+      >
+        <TheIcon :icon="tab.icon" />
+        <p>{{ tab.label }}</p>
       </div>
-      <div class="tab">
+      <!-- <div class="tab">
         <TheIcon icon="like" />
         <p>喜愛</p>
       </div>
       <div class="tab">
         <TheIcon icon="favorite" />
         <p>典藏</p>
-      </div>
+      </div> -->
     </div>
     <div class="tabContent">
       <p>162篇貼文</p>
@@ -39,13 +45,30 @@
 
 <script setup lang="ts">
 import { useStore } from "vuex";
-import { computed } from "vue";
+import { ref, computed } from "vue";
 
 import TheIcon from "../components/TheIcon.vue";
 import TheAvatar from "../components/TheAvatar.vue";
 
 const store = useStore();
 const user = computed(() => store.state.user.user);
+
+const tabs = ref([
+  {
+    label: "我的",
+    icon: "posts",
+  },
+  {
+    label: "喜愛",
+    icon: "like",
+  },
+  {
+    label: "典藏",
+    icon: "favorite",
+  },
+]);
+
+const currentTab = ref(0);
 </script>
 
 <style scoped>
