@@ -35,9 +35,14 @@
       </div> -->
     </div>
     <div class="tabContent">
-      <p>162篇貼文</p>
+      <p>{{ myPosts[currentTab].length }}篇貼文</p>
       <div class="posts">
-        <img v-for="n in 9" src="" class="postImage" />
+        <img
+          v-for="post in myPosts[currentTab]"
+          :src="post.image"
+          :key="post.id"
+          class="postImage"
+        />
       </div>
     </div>
   </div>
@@ -45,10 +50,17 @@
 
 <script setup lang="ts">
 import { useStore } from "vuex";
-import { ref, computed } from "vue";
+import { ref, reactive, computed, watch } from "vue";
 
 import TheIcon from "../components/TheIcon.vue";
 import TheAvatar from "../components/TheAvatar.vue";
+import { loadPostByMe, loadPostsLikedOrFavoredByMe } from "../apis/post";
+
+interface AllPostType {
+  0: any[];
+  1: any[];
+  2: any[];
+}
 
 const store = useStore();
 const user = computed(() => store.state.user.user);
@@ -69,6 +81,38 @@ const tabs = ref([
 ]);
 
 const currentTab = ref(0);
+
+const myPosts = reactive<AllPostType>({
+  0: [],
+  1: [],
+  2: [],
+});
+
+watch(
+  currentTab,
+  async () => {
+    switch (currentTab.value) {
+      case 0:
+        if (myPosts[0].length === 0) {
+          myPosts[0] = await loadPostByMe();
+        }
+        break;
+      case 1:
+        if (myPosts[1].length === 0) {
+          myPosts[1] = await loadPostsLikedOrFavoredByMe();
+        }
+        break;
+      case 2:
+        if (myPosts[2].length === 0) {
+          myPosts[2] = await loadPostsLikedOrFavoredByMe("favors");
+        }
+        break;
+      default:
+        return;
+    }
+  },
+  { immediate: true }
+);
 </script>
 
 <style scoped>
