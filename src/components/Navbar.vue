@@ -2,7 +2,7 @@
   <nav class="navbar">
     <router-link to="/"><img src="../assets/logo.svg" /></router-link>
     <div class="searchInput">
-      <input type="text" />
+      <input type="text" @change="searchPosts" />
       <TheIcon icon="search" />
     </div>
     <div class="navItems">
@@ -25,11 +25,23 @@
 import TheIcon from "./TheIcon.vue";
 import TheAvatar from "./TheAvatar.vue";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 const store = useStore();
+const router = useRouter();
 
 const publishPost = (): void => {
   store.commit("changeShowPostUpload", true);
+};
+
+const searchPosts = async (e: Event) => {
+  await store.dispatch("searchPosts", (e.target as HTMLInputElement).value);
+  router.push({
+    name: "search_result",
+    params: {
+      term: (e.target as HTMLInputElement).value,
+    },
+  });
 };
 </script>
 

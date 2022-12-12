@@ -4,6 +4,7 @@ export const post = {
   state() {
     return {
       list: [],
+      searchResult: [],
       currentId: null,
     };
   },
@@ -35,6 +36,9 @@ export const post = {
     increaseCommentCount(state: any, id: string) {
       const post = state.list.find((post: any) => post.id === id);
       post.comments++;
+    },
+    setPostsSearchResult(state: any, posts: any) {
+      state.searchResult = posts;
     },
   },
   actions: {
@@ -72,6 +76,10 @@ export const post = {
     async hidePostDetails({ commit }: { commit: any }) {
       commit("setCurrentId", null);
       commit("changeShowPostDetails", false);
+    },
+    async searchPosts({ commit }: { commit: any }, term: string) {
+      const posts = await loadPosts("filters[description][$contains]=" + term);
+      commit("setPostsSearchResult", posts);
     },
   },
   getters: {
