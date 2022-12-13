@@ -9,26 +9,40 @@
       <router-link to="/"><TheIcon icon="home" /></router-link>
       <button @click="publishPost()"><TheIcon icon="publish" /></button>
       <div class="profileDropDown">
-        <TheAvatar :width="42" :height="42" style="cursor: pointer" />
-        <!-- <div class="dropdownMenu">
+        <TheAvatar
+          :width="42"
+          :height="42"
+          :src="user.avatar"
+          style="cursor: pointer"
+          @click="showDropDown = !showDropDown"
+        />
+        <div
+          class="dropdownMenu"
+          v-show="showDropDown"
+          @click="showDropDown = false"
+        >
           <ul class="profileMenu">
             <li><router-link to="/profile">個人首頁</router-link></li>
-            <li>登出</li>
+            <li @click="logout">登出</li>
           </ul>
-        </div> -->
+        </div>
       </div>
     </div>
   </nav>
 </template>
 
 <script setup lang="ts">
-import TheIcon from "./TheIcon.vue";
-import TheAvatar from "./TheAvatar.vue";
+import { ref, computed } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
+import TheIcon from "./TheIcon.vue";
+import TheAvatar from "./TheAvatar.vue";
 
 const store = useStore();
 const router = useRouter();
+const showDropDown = ref(false);
+
+const user = computed(() => store.state.user.user);
 
 const publishPost = (): void => {
   store.commit("changeShowPostUpload", true);
@@ -42,6 +56,11 @@ const searchPosts = async (e: Event) => {
       term: (e.target as HTMLInputElement).value,
     },
   });
+};
+
+const logout = async () => {
+  await store.dispatch("logoutUser");
+  router.push("/login");
 };
 </script>
 
